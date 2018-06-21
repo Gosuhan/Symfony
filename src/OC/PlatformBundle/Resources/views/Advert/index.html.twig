@@ -1,16 +1,23 @@
+{# src/OC/PlatformBundle/Resources/view/Advert/view.html.twig #}
+
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Bienvenue sur ma première page avec OpenClassrooms</title>
-    </head>
-    <body>
-        <h1>Hello {{ nom }} !</h1>
+  <head>
+    <title>Affichage de l'annonce {{ id }}</title>
+  </head>
+  <body>
+    <h1>Affichage de l'annonce n�{{ id }} !</h1>
 
-        <p>
-            Le Hello World est un grand classique en programmation.
-            Il signifie énormément, car cela veur dire que vous avez
-            réussi à exécuter le programme pour accomplir une tâche simple :
-            afficher ce hellor world !
-        </p>
-    </body>
+    <div>
+      {# On affiche tous les messages flash dont le nom est � info � #}
+      {% for message in app.session.flashbag.get('info') %}
+        <p>Message flash : {{ message }}</p>
+      {% endfor %}
+    </div>
+
+    <p>
+      Ici nous pourrons lire l'annonce ayant comme id : {{ id }}<br />
+      Mais pour l'instant, nous ne savons pas encore le faire, cela viendra !
+    </p>
+  </body>
 </html>

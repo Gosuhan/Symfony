@@ -39,20 +39,48 @@ class AdvertController extends Controller
     //     return $response;
     // }
 
-    public function viewAction($id)
-    {
-        $url = $this->get('router')->generate('oc_platform_home');
+    // public function viewAction($id)
+    // {
+    //     $url = $this->get('router')->generate('oc_platform_home');
 
-        return new RedirectResponse($url); // OU return $this->redirect($url) // OU ENCORE PLUS COURT (SS LIGNE DU DESSUS) return $this->redirectToRoute('oc_platform_home');
+    //     return new RedirectResponse($url); // OU return $this->redirect($url) // OU ENCORE PLUS COURT (SS LIGNE DU DESSUS) return $this->redirectToRoute('oc_platform_home');
+    // }
+
+    // public function viewAction($id)
+    // {
+    //     $response = new Response(json_encode(array('id' => $id)));
+
+    //     $response->headers->set('Content-Type', 'application/json');
+
+    //     return $response; // OU EN UNE SEULE LIGNE return new JsonResponse(arry('id' => $id));
+    // }
+
+    public function viewAction($id, Request $request)
+    {
+        $session = $request->getSession();
+
+        $userId = $session->get('user_id');
+
+        $session->set('user_id', 91);
+
+        return new Response("<body>Je suis une page de test, je n'ai rien à dire</body>");
     }
 
     public function viewSlugAction($slug, $year, $format)
     {
         return new Response(
             "On pourrait afficher l'annonce correspondant au
-            slug '".$slug."', créée en ".$year." et au format ".$format."."
+            slug '".$slug."', cr��e en ".$year." et au format ".$format."."
         );
     }
+    
+    public function addAction(Request $request)
+    {
+    	$session = $request->getSession();
+    	$session->getFlashBag()->add('info', 'Oui oui, elle est bien enregistr�e !');
+    	return $this->redirectToRoute('oc_platform_view', array('id' => 5));
+    }
+    
 }
 
 #    Créaion d'un lien dans une vue Twig, en considérant bien sûr
